@@ -1,9 +1,9 @@
 import json
-
+from djangochat import settings
 from django.contrib.auth.models import User
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
-
+from cipher import scrypto
 from .models import Room, Message
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -39,7 +39,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': message,
+                'message':  scrypto.encrypt(message, settings.DJANGO_CHAT_SECRET_KEY),
                 'username': username
             }
         )
@@ -51,7 +51,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
-            'message': message,
+            'message': scrypto.decrypt(message, settings.DJANGO_CHAT_SECRET_KEY),
             'username': username
         }))
 

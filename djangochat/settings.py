@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from telnetlib import LOGOUT
+from cipher import scrypto
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,6 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'djangochat.wsgi.application'
 ASGI_APPLICATION = 'djangochat.asgi.application' # thêm lệnh này để chạy server
+DJANGO_CHAT_SECRET_KEY = scrypto.generate_key()
 
 CHANNEL_LAYERS = {
     'default': {
