@@ -25,7 +25,15 @@ def decrypt(message, key):
     return vnc.decode(decrypted_message)
 
 
-def bytes_to_string(bytes) -> str:
-    string = str(bytes)
+def vigenere_encrypt(plaintext, key):
+    ciphertext = ""
+    for i, char in enumerate(plaintext):
+        ciphertext += chr((ord(char) + ord(key[i % len(key)])))
+    return ciphertext
 
-    return string.lstrip('b').lstrip("'").rstrip("'")
+
+def vigenere_decrypt(ciphertext, key):
+    plaintext = ""
+    for i, char in enumerate(ciphertext):
+        plaintext += chr((ord(char) - ord(key[i % len(key)])))
+    return plaintext

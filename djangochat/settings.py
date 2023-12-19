@@ -81,6 +81,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'djangochat.wsgi.application'
 ASGI_APPLICATION = 'djangochat.asgi.application' # thêm lệnh này để chạy server
 DJANGO_CHAT_SECRET_KEY = scrypto.generate_key()
+DB_CHAT_SECRET_KEY = 'khang abc 123'
 
 CHANNEL_LAYERS = {
     'default': {

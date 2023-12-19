@@ -60,4 +60,5 @@ class ChatConsumer(AsyncWebsocketConsumer):
         user = User.objects.get(username=username)
         room = Room.objects.get(slug=room)
 
+        message = scrypto.vigenere_encrypt(message, settings.DB_CHAT_SECRET_KEY)
         Message.objects.create(user=user, room=room, content=message)
